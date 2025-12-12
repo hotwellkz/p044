@@ -85,9 +85,9 @@ fi
 NODE_VERSION=$(node -v)
 info "Node.js версия: $NODE_VERSION"
 
-# 5. Установка зависимостей
-info "Устанавливаю зависимости..."
-npm install --production || error "Не удалось установить зависимости"
+# 5. Установка зависимостей (включая dev для компиляции)
+info "Устанавливаю зависимости (включая dev для компиляции)..."
+npm install || error "Не удалось установить зависимости"
 success "Зависимости установлены"
 
 # 6. Компиляция TypeScript
@@ -190,4 +190,5 @@ info "Проверка работоспособности:"
 echo -e "${GREEN}  curl http://127.0.0.1:$BACKEND_PORT/health${NC}"
 echo -e "${GREEN}  curl http://$VPS_PUBLIC_IP:$VPS_PUBLIC_PORT/health${NC}"
 echo ""
+
 
