@@ -62,7 +62,10 @@ success "Директории созданы"
 # 2. Клонирование/обновление репозитория
 info "Проверяю репозиторий..."
 if [ -d "$SYNO_APP_PATH/.git" ]; then
-    info "Репозиторий уже существует, обновляю..."
+    info "Репозиторий уже существует, исправляю права доступа..."
+    sudo chown -R admin:users "$SYNO_APP_PATH"
+    sudo chmod -R 755 "$SYNO_APP_PATH"
+    info "Обновляю репозиторий..."
     cd "$SYNO_APP_PATH"
     git pull origin main || error "Не удалось обновить репозиторий"
     success "Репозиторий обновлён"
@@ -70,6 +73,8 @@ else
     info "Клонирую репозиторий..."
     cd /volume1/shortsai
     git clone https://github.com/hotwellkz/p041.git app || error "Не удалось клонировать репозиторий"
+    sudo chown -R admin:users "$SYNO_APP_PATH"
+    sudo chmod -R 755 "$SYNO_APP_PATH"
     success "Репозиторий клонирован"
 fi
 
