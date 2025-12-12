@@ -156,6 +156,16 @@ if ! command -v pm2 &> /dev/null; then
     fi
 else
     info "pm2 уже установлен"
+    # Определяем путь к pm2
+    if command -v pm2 &> /dev/null; then
+        PM2_CMD="pm2"
+    elif [ -f "/usr/local/bin/pm2" ]; then
+        PM2_CMD="/usr/local/bin/pm2"
+    elif [ -f "/volume1/@appstore/Node.js_v20/usr/local/bin/pm2" ]; then
+        PM2_CMD="/volume1/@appstore/Node.js_v20/usr/local/bin/pm2"
+    else
+        PM2_CMD="pm2"  # Fallback
+    fi
 fi
 
 # 9. Остановка старого процесса (если запущен)
